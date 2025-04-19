@@ -1,84 +1,81 @@
-# Turborepo starter
+# Personal Profile Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+This monorepo contains the applications and shared configurations for the personal profile website.
 
-## Using this example
+## Structure
 
-Run the following command:
+- `apps/professional-profile`: Astro frontend application for the public-facing profile.
+- `apps/content-manager`: Strapi CMS for managing website content.
+- `packages/tailwind-config`: Shared Tailwind CSS configuration.
+- `packages/tsconfig`: Shared TypeScript configurations (replace '@repo/typescript-config' if different).
+- `packages/eslint-config`: Shared ESLint configuration (replace '@repo/eslint-config' if different).
+- `packages/ui`: (Optional) Shared React components (if kept from `create-turbo`).
 
-```sh
-npx create-turbo@latest
+## Getting Started
+
+### Prerequisites
+
+- Node.js (LTS version recommended)
+- pnpm
+
+### Installation
+
+Install dependencies from the root directory:
+
+```bash
+pnpm install
 ```
 
-## What's inside?
+### Development
 
-This Turborepo includes the following packages/apps:
+**Configure `turbo.json` and root `package.json` scripts:**
 
-### Apps and Packages
+Ensure your root `package.json` has scripts like:
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```json
+"scripts": {
+  "dev": "turbo dev",
+  "build": "turbo build",
+  "lint": "turbo lint",
+  // Add other scripts as needed
+}
 ```
 
-### Develop
+Ensure your `turbo.json` pipeline correctly defines the `dev`, `build`, and `lint` tasks for `professional-profile` (e.g., `astro dev`, `astro build`, `astro check && eslint .`) and `content-manager` (e.g., `strapi develop`, `strapi build`, `eslint .`).
 
-To develop all apps and packages, run the following command:
+**Run both applications concurrently:**
 
-```
-cd my-turborepo
+```bash
 pnpm dev
 ```
 
-### Remote Caching
+This command should:
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+- Start the Strapi development server (`content-manager`) typically on `http://localhost:1337`.
+- Start the Astro development server (`professional-profile`) typically on `http://localhost:4321`.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+**Run a specific application:**
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+```bash
+# Run Strapi CMS (adjust script name if needed)
+pnpm --filter content-manager dev
 
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
+# Run Astro frontend (adjust script name if needed)
+pnpm --filter professional-profile dev
 ```
 
-## Useful Links
+**Build all applications:**
 
-Learn more about the power of Turborepo:
+```bash
+pnpm build
+```
 
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
+## Configuration Notes
+
+- The Astro app (`professional-profile`) is configured to use the shared `tailwind-config`, `tsconfig`, and `eslint-config`.
+- The Strapi app (`content-manager`) is configured to use the shared `tsconfig` and `eslint-config`.
+- Environment variables for the Astro app (e.g., Strapi API endpoint) should be placed in `apps/professional-profile/.env`. Strapi environment variables go in `apps/content-manager/.env`.
+
+## Strapi Admin
+
+Access the Strapi admin panel (after starting the `content-manager` app via `pnpm --filter content-manager dev`) at `http://localhost:1337/admin`. You will need to create an admin user on the first run.

@@ -1,0 +1,15 @@
+---
+const {title, description, start_date, end_date, school} = Astro.props;
+---
+
+<div class="education">
+  <h2>Education</h2>
+  <ul>
+    <li>
+      <h3>{school}</h3>
+      <p>{description}</p>
+      <p>{start_date}</p>
+      <p>{end_date}</p>
+    </li>
+  </ul>
+</div>
