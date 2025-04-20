@@ -3,14 +3,11 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "build:content-manager": "turbo run build --filter=content-manager",
     "dev": "turbo run dev",
-    "dev:content-manager": "turbo run dev --filter=content-manager",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "start": "turbo run start",
-    "start:content-manager": "turbo run start --filter=content-manager"
+    "start": "turbo run start"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
