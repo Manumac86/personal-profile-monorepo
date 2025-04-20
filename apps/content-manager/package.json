@@ -10,8 +10,11 @@
     "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 strapi develop",
     "develop": "strapi develop",
     "seed:example": "node ./scripts/seed.js",
-    "start": "strapi start",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED=0 strapi start",
     "strapi": "strapi",
+    "build:content-manager": "NODE_TLS_REJECT_UNAUTHORIZED=0 strapi build",
+    "start:content-manager": "NODE_TLS_REJECT_UNAUTHORIZED=0 strapi start",
+    "dev:content-manager": "NODE_TLS_REJECT_UNAUTHORIZED=0 strapi develop",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },

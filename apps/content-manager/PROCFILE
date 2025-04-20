@@ -1,1 +1,1 @@
-api: npm start --w content-manager
+web: pnpm run start:content-manager
