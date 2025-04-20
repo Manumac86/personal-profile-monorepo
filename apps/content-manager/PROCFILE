@@ -1,1 +1,1 @@
-web: pnpm workspace content-manager start 
+web: npm start --w content-manager
