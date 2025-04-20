@@ -1,31 +1,36 @@
 ---
+import Header from "@/components/Header.astro";
 import { getGlobal } from "@/services/cm";
 const global = await getGlobal();
-import 'atropos/css'
+const { title } = Astro.props;
+import "../styles/global.css";
+import Footer from "@/components/Footer.astro";
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{global.siteName}</title>
-		<meta name="description" content={global.siteDescription.split("\n").join(" | ")} />
-	</head>
-	<body>
-		<div class="flex flex-col md:flex-row w-full h-full min-h-screen bg-black p-6 text-white">
-			<slot />
-		</div>
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{global.siteName} | {title}</title>
+    <meta name='description' content={global.siteDescription.split("\n").join(" | ")} />
+  </head>
+  <body class='bg-black'>
+    <div class='flex flex-col items-center gap-6 w-full p-6 text-white max-w-[1200px] mx-auto'>
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>

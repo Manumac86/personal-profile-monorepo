@@ -34,9 +34,7 @@ export const getProjects = async () => {
 
 export const getProfileImage = async () => {
   const uploads: any = await getUploads();
-  const profileImageUrl = uploads.filter((upload: any) =>
-    upload.name.includes("profile-image")
-  );
+  const profileImageUrl = uploads.filter((upload: any) => upload.name.includes("profile-image"));
   return profileImageUrl[0].url;
 };
 

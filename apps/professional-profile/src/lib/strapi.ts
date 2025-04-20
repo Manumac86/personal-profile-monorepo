@@ -13,12 +13,7 @@ interface Props {
  * @param wrappedByList - If the response is a list, unwrap it
  * @returns
  */
-export default async function fetchApi<T>({
-  endpoint,
-  query,
-  wrappedByKey,
-  wrappedByList,
-}: Props): Promise<T> {
+export default async function fetchApi<T>({ endpoint, query, wrappedByKey, wrappedByList }: Props): Promise<T> {
   if (endpoint.startsWith("/")) {
     endpoint = endpoint.slice(1);
   }
