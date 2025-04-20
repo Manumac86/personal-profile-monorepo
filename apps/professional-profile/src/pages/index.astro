@@ -2,10 +2,44 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
+import {Card, CardHeader, CardTitle, CardDescription, CardContent} from '@/components/ui/card';
+import {getEducations, getExperiences, getProjects} from '@/services/cm';
+
+const educations = await getEducations();
+const latestEducation = educations.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime())[0];
+const experiences = await getExperiences();
+const latestExperience = experiences.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime())[0];
+const projects = await getProjects();
+const latestProject = projects.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime())[0];
 ---
 <Layout title="Homepage">
 	<Header />
-	<h1 class="text-2xl font-bold my-4">Emmanuel Martinez</h1>
-	<p>This page will contain information about my homepage.</p>
-	<p>Software Engineer</p>
+	<div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-3 gap-4 w-full h-auto">
+		<Card className="dark col-span-1 row-span-1">
+			<CardHeader>
+				<CardTitle>Latest Experience</CardTitle>
+				<CardDescription>{latestExperience?.title} - {latestExperience?.company}</CardDescription>
+			</CardHeader>
+			<CardContent class="flex flex-col gap-4">
+				<p class="text-sm text-ultramarine500">{latestExperience?.start_date} - {latestExperience?.is_current_job ? 'Present' : `${latestExperience?.end_date}`}</p>
+				<p class="text-sm text-ellipsis line-clamp-5">{latestExperience?.description}</p>
+			</CardContent>
+		</Card>
+		<Card className="dark col-span-1 row-span-1">
+			<CardHeader>
+				<CardTitle>Latest Education</CardTitle>
+				<CardDescription>{latestEducation?.school}</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<p>{latestEducation?.title}</p>
+				<p>{latestEducation?.description}</p>
+			</CardContent>
+		</Card>
+		<Card className="dark col-span-1 row-span-1">
+			<CardHeader>
+				<CardTitle>Latest Project</CardTitle>
+				<CardDescription>{latestProject?.title}</CardDescription>
+			</CardHeader>
+		</Card> 
+	</div>
 </Layout>

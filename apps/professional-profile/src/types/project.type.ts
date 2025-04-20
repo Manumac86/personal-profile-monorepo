@@ -1,12 +1,12 @@
-export type Education = {
+export type Project = {
   title: string;
   description: string;
   start_date: string;
   end_date: string;
-  school: string;
 };
-export type Educations = {
-  data: Education[];
+
+export type Projects = {
+  data: Project[];
   meta: {
     pagination: {
       page: number;

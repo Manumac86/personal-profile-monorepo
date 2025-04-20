@@ -1,12 +1,14 @@
-export type Education = {
+export type Experience = {
   title: string;
   description: string;
   start_date: string;
   end_date: string;
-  school: string;
+  company: string;
+  is_current_job: boolean;
 };
-export type Educations = {
-  data: Education[];
+
+export type Experiences = {
+  data: Experience[];
   meta: {
     pagination: {
       page: number;

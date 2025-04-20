@@ -1,6 +1,8 @@
-import { About, Global } from "@/types/about.type";
-import { Education } from "@/types/education.type";
 import fetchApi from "../lib/strapi";
+import { About, Global } from "@/types/about.type";
+import { Educations } from "@/types/education.type";
+import { Experiences } from "@/types/experience.type";
+import { Projects } from "@/types/project.type";
 
 export const getUploads = async () => {
   const uploads = await fetchApi({
@@ -10,10 +12,24 @@ export const getUploads = async () => {
 };
 
 export const getEducations = async () => {
-  const educations = await fetchApi<Education[]>({
+  const educations = await fetchApi<Educations>({
     endpoint: "educations",
   });
-  return educations;
+  return educations.data;
+};
+
+export const getExperiences = async () => {
+  const experiences = await fetchApi<Experiences>({
+    endpoint: "experiences",
+  });
+  return experiences.data;
+};
+
+export const getProjects = async () => {
+  const projects = await fetchApi<Projects>({
+    endpoint: "projects",
+  });
+  return projects.data;
 };
 
 export const getProfileImage = async () => {
