@@ -1,10 +1,13 @@
 ---
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import { getGlobal } from "@/services/cm";
+import Hero from "@/components/Hero.astro";
+import { getGlobal, getAbout } from "@/services/cm";
 import "../styles/global.css";
 
 const global = await getGlobal();
+const about = await getAbout();
+
 const { title } = Astro.props;
 ---
 
@@ -24,8 +27,13 @@ const { title } = Astro.props;
   <body class="bg-black">
     <div class="w-full flex flex-col bg-gradient-to-tr from-sky-900 to-black">
       <Header />
+      <Hero title={about.title} excerpt={about.excerpt} />
     </div>
-    <slot />
+    <main
+      class="flex flex-col items-center justify-center md:flex-row md:justify-between gap-4 w-full max-w-[1200px] p-8"
+    >
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>

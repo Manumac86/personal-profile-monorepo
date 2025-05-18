@@ -2,6 +2,7 @@ export interface About {
   data: {
     id: number;
     title: string;
+    excerpt: string;
     documentId: string;
     createdAt: string;
     updatedAt: string;
