@@ -1,6 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import MainLayout from "../layouts/MainLayout.astro";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
 import { getEducations, getExperiences, getProjects } from "@/services/cm";
 import Hero from "@/components/Hero.astro";
 
@@ -13,50 +19,55 @@ const latestExperience = experiences.sort(
   (a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime()
 )[0];
 const projects = await getProjects();
-const latestProject = projects.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime())[0];
+const latestProject = projects.sort(
+  (a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime()
+)[0];
 ---
 
-<Layout title='Homepage'>
-  <Hero />
-  <div class='flex flex-col items-center justify-center md:flex-row md:justify-between gap-4 w-full'>
-    <Card className='dark h-[220px] w-[350px] overflow-ellipsis'>
-      <a href={`/experiences`}>
-        <CardHeader>
-          <CardTitle>Latest Experience</CardTitle>
-          <CardDescription>{latestExperience?.title} - {latestExperience?.company}</CardDescription>
-        </CardHeader>
-        <CardContent class='flex flex-col gap-2'>
-          <p class='text-sm text-[#bbd2ff]'>
-            {latestExperience?.start_date} - {
-              latestExperience?.is_current_job ? "Present" : `${latestExperience?.end_date}`
-            }
-          </p>
-          <p class='text-sm text-[#435aff]'>{latestExperience?.title}</p>
-          <p class='text-sm text-ellipsis line-clamp-3'>
-            {latestExperience?.description}
-          </p>
-        </CardContent>
-      </a>
-    </Card>
-    <Card className='dark h-[220px] w-[350px] overflow-ellipsis'>
-      <a href={`/projects`}>
-        <CardHeader>
-          <CardTitle>Latest Education</CardTitle>
-          <CardDescription>{latestEducation?.school}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>{latestEducation?.title}</p>
-          <p>{latestEducation?.description}</p>
-        </CardContent>
-      </a>
-    </Card>
-    <Card className='dark h-[220px] w-[350px] overflow-ellipsis'>
-      <a href={`/projects`}>
-        <CardHeader>
-          <CardTitle>Latest Project</CardTitle>
-          <CardDescription>{latestProject?.title}</CardDescription>
-        </CardHeader>
-      </a>
-    </Card>
-  </div>
-</Layout>
+<MainLayout title="Homepage">
+  <Card className="dark h-[220px] w-[350px] overflow-ellipsis">
+    <a href={`/experiences`}>
+      <CardHeader>
+        <CardTitle>Latest Experience</CardTitle>
+        <CardDescription
+          >{latestExperience?.title} - {
+            latestExperience?.company
+          }</CardDescription
+        >
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2">
+        <p class="text-sm text-[#bbd2ff]">
+          {latestExperience?.start_date} - {
+            latestExperience?.is_current_job
+              ? "Present"
+              : `${latestExperience?.end_date}`
+          }
+        </p>
+        <p class="text-sm text-[#435aff]">{latestExperience?.title}</p>
+        <p class="text-sm text-ellipsis line-clamp-3">
+          {latestExperience?.description}
+        </p>
+      </CardContent>
+    </a>
+  </Card>
+  <Card className="dark h-[220px] w-[350px] overflow-ellipsis">
+    <a href={`/projects`}>
+      <CardHeader>
+        <CardTitle>Latest Education</CardTitle>
+        <CardDescription>{latestEducation?.school}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p>{latestEducation?.title}</p>
+        <p>{latestEducation?.description}</p>
+      </CardContent>
+    </a>
+  </Card>
+  <Card className="dark h-[220px] w-[350px] overflow-ellipsis">
+    <a href={`/projects`}>
+      <CardHeader>
+        <CardTitle>Latest Project</CardTitle>
+        <CardDescription>{latestProject?.title}</CardDescription>
+      </CardHeader>
+    </a>
+  </Card>
+</MainLayout>
